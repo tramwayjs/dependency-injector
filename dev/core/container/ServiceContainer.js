@@ -38,9 +38,7 @@ class ServiceContainer {
         const args = FuncParser.parse(factory);
         const deps = args.map(dependency => this.get(dependency));
 
-        Reflect.construct(factory, deps);
-
-        return factory
+        return Reflect.construct(factory, deps);
     }
 
     /**

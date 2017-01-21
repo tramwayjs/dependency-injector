@@ -8,7 +8,7 @@ export default class Animal {
         this.name = name;
     }
 
-    static makeSound() {
+    makeSound() {
         console.log('meow');
     }
 }
