@@ -5,4 +5,3 @@ core/**/*.js.map
 *.js.map
 /test.js
 .idea
-transpiled

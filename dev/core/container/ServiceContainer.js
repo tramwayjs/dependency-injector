@@ -1,7 +1,8 @@
-import FuncParser from './Parser/FunctionParser';
+import FuncParser from './FunctionParser';
+import DependencyNotFoundError from '../errors/DependencyNotFoundError';
 
 /**
- * @class
+ * @class ServiceContainer
  */
 class ServiceContainer {
 
@@ -46,6 +47,7 @@ class ServiceContainer {
      *
      * @param {string} name
      * @return {*}
+     * @throws {DependencyNotFoundError}
      */
     get(name) {
         if (!this.dependencies[name]) {
@@ -54,7 +56,7 @@ class ServiceContainer {
             this.dependencies[name] = factory && this.inject(factory);
 
             if (!this.dependencies[name]) {
-                throw new Error(`Cannot find module: ${name}`);
+                throw new DependencyNotFoundError(name);
             }
         }
         return this.dependencies[name];

@@ -1,5 +1,5 @@
 /**
- * @class
+ * @class FunctionParser
  */
 export default class FunctionParser {
 

@@ -5,7 +5,7 @@ const babel = require('gulp-babel');
 const sourcemaps = require('gulp-sourcemaps');
 
 const DEV_DIRECTORY = 'dev/**/*.js';
-const DIST_DIRECTORY = 'transpiled/';
+const DIST_DIRECTORY = '';
 
 gulp.task('build', function () {
     return gulp

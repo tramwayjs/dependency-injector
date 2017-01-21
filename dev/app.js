@@ -1,6 +1,7 @@
-import container from './ServiceContainer';
-import Animal from './Entity/Animal';
-import Vet from './Entity/Vet';
+import container from './index.js';
+
+import Animal from './entities/Animal';
+import Vet from './entities/Vet';
 
 
 container.register('name', 'cat');
