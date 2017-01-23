@@ -1,0 +1,30 @@
+{
+  "name": "tramway-connection-example",
+  "version": "1.0.0",
+  "description": "Sample NodeJS app using tramway-core with connection extensions and docker with GitLab-CI",
+  "author": "Julian Wolfe",
+  "main": "server.js",
+  "scripts": {
+    "build": "gulp default",
+    "start": "gulp build && node dist/server.js",
+    "test": "gulp build && mocha tests"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.1",
+    "express": "^4.13.3",
+    "method-override": "^2.3.6",
+    "tramway-connection-rest-api": "^1.1.1",
+    "tramway-core": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-flow-strip-types": "^6.14.0",
+    "babel-preset-es2015-node6": "^0.3.0",
+    "gulp": "~3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-sourcemaps": "~1.9.1",
+    "mocha": "^3.1.0",
+    "gulp-livereload": "~3.8.1"
+  }
+}

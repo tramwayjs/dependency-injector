@@ -1,0 +1,21 @@
+version: '2'
+services:
+  api:
+    image: registry.gitlab.com/tramwayjs/tramway-example
+    ports:
+      - 8080:8080
+  client:
+    image: registry.gitlab.com/tramwayjs/tramway-connection-example
+    ports:
+      - 8081:8081
+    links:
+      - api
+
+  lb:
+    image: dockercloud/haproxy
+    ports:
+      - 8082:8081
+    links:
+      - client
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock 
