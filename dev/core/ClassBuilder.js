@@ -1,16 +1,16 @@
-import ServiceParameters from './entities/ServiceParameters';
+import ClassDefinition from './entities/ClassDefinition';
 
 /**
  * @export
- * @class ServiceBuilder
+ * @class ClassBuilder
  */
-export default class ServiceBuilder {
+export default class ClassBuilder {
     /**
-     * Creates an instance of ServiceBuilder.
+     * Creates an instance of ClassBuilder.
      * 
-     * @param {ServiceParameters} service
+     * @param {ClassDefinition} service
      * 
-     * @memberOf ServiceBuilder
+     * @memberOf ClassBuilder
      */
     constructor(service) {
         this.Class = service.getClass();
@@ -21,7 +21,7 @@ export default class ServiceBuilder {
     /**
      * @returns {*}
      * 
-     * @memberOf ServiceBuilder
+     * @memberOf ClassBuilder
      */
     prepare() {
         let instance = new this.Class(...this.constructorArgs);

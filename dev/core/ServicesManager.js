@@ -1,8 +1,8 @@
 import Container from './container/Container';
 import ContainerManager from './container/ContainerManager';
 
-import ServiceParametersFactory from './ServiceParametersFactory';
-import ServiceBuilder from './ServiceBuilder';
+import ClassDefinitionFactory from './ClassDefinitionFactory';
+import ClassBuilder from './ClassBuilder';
 import ServiceNotFoundError from './errors/ServiceNotFoundError';
 
 var manager = null;
@@ -51,7 +51,7 @@ class ServicesManager extends ContainerManager {
      * @memberOf ServicesManager
      */
     prepareServices(services) {
-        services = ServiceParametersFactory.create(services);
+        services = ClassDefinitionFactory.create(services);
         return new Container(services);
     }
 
@@ -85,7 +85,7 @@ class ServicesManager extends ContainerManager {
             throw new ServiceNotFoundError(key);
         }
         
-        service = (new ServiceBuilder(service)).prepare();
+        service = (new ClassBuilder(service)).prepare();
         this.instances.set(key, service);
         return service;
     }

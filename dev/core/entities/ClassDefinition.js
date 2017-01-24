@@ -4,20 +4,20 @@ let {TypeEnforcementService} = services;
 /**
  * 
  * @export
- * @class ServiceParameters
+ * @class ClassDefinition
  * @extends {Entity}
  */
-export default class ServiceParameters extends Entity {
+export default class ClassDefinition extends Entity {
 
     /**
-     * Creates an instance of ServiceParameters.
+     * Creates an instance of ClassDefinition.
      * 
      * @param {string} key
      * @param {Object} Class
      * @param {[]} constructorArgs
      * @param {[]} functionsArgs
      * 
-     * @memberOf ServiceParameters
+     * @memberOf ClassDefinition
      */
     constructor(key, Class, constructorArgs, functionsArgs) {
         super();
@@ -30,7 +30,7 @@ export default class ServiceParameters extends Entity {
     /**
      * @returns {string}
      * 
-     * @memberOf ServiceParameters
+     * @memberOf ClassDefinition
      */
     getKey() {
         return this.key;
@@ -39,7 +39,7 @@ export default class ServiceParameters extends Entity {
     /**
      * @returns {Object}
      * 
-     * @memberOf ServiceParameters
+     * @memberOf ClassDefinition
      */
     getClass() {
         return this.Class;
@@ -48,7 +48,7 @@ export default class ServiceParameters extends Entity {
     /**
      * @returns {[]}
      * 
-     * @memberOf ServiceParameters
+     * @memberOf ClassDefinition
      */
     getConstructorArgs() {
         return this.constructorArgs;
@@ -57,7 +57,7 @@ export default class ServiceParameters extends Entity {
     /**
      * @returns {[]}
      * 
-     * @memberOf ServiceParameters
+     * @memberOf ClassDefinition
      */
     getFunctionsArgs() {
         return this.functionsArgs;
