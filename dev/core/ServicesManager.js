@@ -1,19 +1,67 @@
 import Container from './container/Container';
+import ContainerManager from './container/ContainerManager';
+
 import ServiceParametersFactory from './ServiceParametersFactory';
 import ServiceBuilder from './ServiceBuilder';
 import ServiceNotFoundError from './errors/ServiceNotFoundError';
 
-export default class ServicesManager {
-    constructor(services) {
-        this.services = this.prepareServices(services);
-        this.instances = new Container();
+var manager = null;
+
+/**
+ * 
+ * @class ServicesManager
+ * @extends {ContainerManager}
+ */
+class ServicesManager extends ContainerManager {
+
+    /**
+     * Creates an instance of ServicesManager.
+     * 
+     * @memberOf ServicesManager
+     */
+    constructor() {
+        if (manager) {
+            return manager;
+        }
+        
+        super();
+        this.services = null;
+        this.instances = null;
     }
 
+    /**
+     * 
+     * @param {Object} services
+     * @returns
+     * 
+     * @memberOf ServicesManager
+     */
+    initialize(services) {
+        this.services = this.prepareServices(services);
+        this.instances = new Container();
+        return this;
+    }
+
+    /**
+     * 
+     * 
+     * @param {Object} services
+     * @returns {Container}
+     * 
+     * @memberOf ServicesManager
+     */
     prepareServices(services) {
         services = ServiceParametersFactory.create(services);
         return new Container(services);
     }
 
+    /**
+     * 
+     * @param {string} key
+     * @returns {Object}
+     * 
+     * @memberOf ServicesManager
+     */
     get(key) {
         let instance = this.instances.get(key);
         if (null !== instance) {
@@ -23,6 +71,13 @@ export default class ServicesManager {
         return this.prepareInstance(key);
     }
 
+    /**
+     * 
+     * @param {string} key
+     * @returns {Object}
+     * 
+     * @memberOf ServicesManager
+     */
     prepareInstance(key) {
         let service = this.services.get(key);
 
@@ -35,3 +90,5 @@ export default class ServicesManager {
         return service;
     }
 }
+
+export default new ServicesManager();

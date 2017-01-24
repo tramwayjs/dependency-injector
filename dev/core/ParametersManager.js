@@ -1,14 +1,53 @@
 import Container from './container/Container';
+import ContainerManager from './container/ContainerManager';
 import MapFactory from './MapFactory';
 
-export default class ParametersManager {
-    constructor(parameters) {
+var manager = null;
+
+/**
+ * @class ParametersManager
+ * @extends {ContainerManager}
+ */
+class ParametersManager extends ContainerManager {
+    /**
+     * Creates an instance of ParametersManager.
+     * 
+     * @memberOf ParametersManager
+     */
+    constructor() {
+        if (manager) {
+            return manager;
+        }
+        super();
+        this.env = null;
+        this.parameters = null;
+        manager = this;
+    }    
+
+    /**
+     * 
+     * @param {Object} parameters
+     * @returns
+     * 
+     * @memberOf ParametersManager
+     */
+    initialize(parameters) {
         this.env = process.env.NODE_ENV;
         parameters = MapFactory.create(parameters, true);
         parameters = this.unifyConfig(parameters);
         this.parameters = new Container(parameters);
-    }    
+        return this;
+    }
 
+    /**
+     * 
+     * 
+     * @param {string} key
+     * @param {boolean} asMap
+     * @returns {*}
+     * 
+     * @memberOf ParametersManager
+     */
     get(key, asMap) {
         if (key) {
             let value = this.parameters.get(key);
@@ -68,3 +107,5 @@ export default class ParametersManager {
         return globalConfig;
     }
 }
+
+export default new ParametersManager();
