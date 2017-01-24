@@ -5,14 +5,12 @@ import ClassDefinitionFactory from './ClassDefinitionFactory';
 import ClassBuilder from './ClassBuilder';
 import ServiceNotFoundError from './errors/ServiceNotFoundError';
 
-var manager = null;
-
 /**
  * 
  * @class ServicesManager
  * @extends {ContainerManager}
  */
-class ServicesManager extends ContainerManager {
+export default class ServicesManager extends ContainerManager {
 
     /**
      * Creates an instance of ServicesManager.
@@ -20,10 +18,6 @@ class ServicesManager extends ContainerManager {
      * @memberOf ServicesManager
      */
     constructor() {
-        if (manager) {
-            return manager;
-        }
-        
         super();
         this.services = null;
         this.instances = null;
@@ -90,5 +84,3 @@ class ServicesManager extends ContainerManager {
         return service;
     }
 }
-
-export default new ServicesManager();

@@ -2,26 +2,20 @@ import Container from './container/Container';
 import ContainerManager from './container/ContainerManager';
 import MapFactory from './MapFactory';
 
-var manager = null;
-
 /**
  * @class ParametersManager
  * @extends {ContainerManager}
  */
-class ParametersManager extends ContainerManager {
+export default class ParametersManager extends ContainerManager {
     /**
      * Creates an instance of ParametersManager.
      * 
      * @memberOf ParametersManager
      */
     constructor() {
-        if (manager) {
-            return manager;
-        }
         super();
         this.env = null;
         this.parameters = null;
-        manager = this;
     }    
 
     /**
@@ -107,5 +101,3 @@ class ParametersManager extends ContainerManager {
         return globalConfig;
     }
 }
-
-export default new ParametersManager();
