@@ -19,13 +19,14 @@ export default class DependencyManager extends ContainerManager {
 
     initialize(services, parameters) {
         this.parametersManager = this.parametersManager && this.parametersManager.initialize(parameters);
-        services = (new DependencyInjector(this.parametersManager)).inject(services);
+        services = (new DependencyInjector(this)).injectParameters(services);
         this.servicesManager = this.servicesManager && this.servicesManager.initialize(services);
         return this;
     }
 
     getService(key) {
-        return this.servicesManager && this.servicesManager.get(key);
+        let service = this.servicesManager && this.servicesManager.get(key);
+        return (new DependencyInjector(this)).injectService(service);
     }
 
     getParameter(key) {

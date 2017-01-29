@@ -1,11 +1,11 @@
-import ParametersManager from './ParametersManager';
+import DependencyManager from './DependencyManager';
 
 import {services} from 'tramway-core';
 let {TypeEnforcementService} = services;
 
 export default class DependencyInjector {
-    constructor(parameters) {
-        this.parameters = TypeEnforcementService.enforceInstance(parameters, ParametersManager);
+    constructor(dependencies) {
+        this.dependencies = TypeEnforcementService.enforceInstance(dependencies, DependencyManager);
     }
 
     /** 
@@ -13,7 +13,7 @@ export default class DependencyInjector {
      * 
      * @memberOf DependencyInjector
      */
-    inject(services) {
+    injectParameters(services) {
         for(let key in services) {
             let service = services[key];
 
@@ -32,17 +32,28 @@ export default class DependencyInjector {
                 });
             }
         }
-
         return services;
     }
 
+    isInjectableCriteria(arg) {
+        return "object" === typeof arg && Object.keys(arg).length === 2 && "type" in arg && "key" in arg;
+    }
+
     injectParameter(arg) {
-        if ("object" === typeof arg && Object.keys(arg).length === 2 && "type" in arg && "key" in arg) {
-            switch (arg.type) {
-                case "parameter": return this.parameters.get(arg.key);
-            }
+        if (this.isInjectableCriteria(arg) && "parameter" === arg.type) {
+           return this.dependencies.getParameter(arg.key);
         }
 
         return arg;
     }
+
+    injectService(service) {
+        for (let key in service) {
+            if (this.isInjectableCriteria(service[key]) && "service" === service[key].type) {
+                service[key] = this.dependencies.getService(service[key].key);
+            }
+        }
+
+        return service;
+    }    
 }

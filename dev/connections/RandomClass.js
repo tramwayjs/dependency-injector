@@ -8,4 +8,16 @@ export default class RandomClass {
         this.c = c;
         return this;
     }
+
+    getA() {
+        return this.a;
+    }
+
+    getB() {
+        return this.b;
+    }
+
+    getC() {
+        return this.c;
+    }
 }

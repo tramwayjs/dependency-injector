@@ -24,5 +24,14 @@ export default {
                 "args": [{"type": "parameter", "key": "exampleAPI"}]
             }
         ]
+    },
+    "ad2": {
+        "class": RandomClass,
+        "functions": [
+            {
+                "function": "setC",
+                "args": [{"type": "service", "key": "ad"}]
+            }
+        ]
     }
 };
