@@ -3,13 +3,25 @@ import DependencyManager from './DependencyManager';
 import {services} from 'tramway-core';
 let {TypeEnforcementService} = services;
 
+/**
+ * @export
+ * @class DependencyInjector
+ */
 export default class DependencyInjector {
+    /**
+     * Creates an instance of DependencyInjector.
+     * 
+     * @param {DependencyManager} dependencies
+     * 
+     * @memberOf DependencyInjector
+     */
     constructor(dependencies) {
         this.dependencies = TypeEnforcementService.enforceInstance(dependencies, DependencyManager);
     }
 
-    /** 
-     * @param {Map<string, Map>} services
+    /**
+     * @param {Object} services
+     * @returns {Object}
      * 
      * @memberOf DependencyInjector
      */
@@ -35,10 +47,26 @@ export default class DependencyInjector {
         return services;
     }
 
+    /**
+     * 
+     * @param {Object} arg {key: string, type: string}
+     * @param {string} arg.type
+     * @param {string} arg.key
+     * @returns {boolean}
+     * 
+     * @memberOf DependencyInjector
+     */
     isInjectableCriteria(arg) {
         return "object" === typeof arg && Object.keys(arg).length === 2 && "type" in arg && "key" in arg;
     }
 
+    /**
+     * 
+     * @param {*} arg
+     * @returns {*}
+     * 
+     * @memberOf DependencyInjector
+     */
     injectParameter(arg) {
         if (this.isInjectableCriteria(arg) && "parameter" === arg.type) {
            return this.dependencies.getParameter(arg.key);
@@ -47,6 +75,12 @@ export default class DependencyInjector {
         return arg;
     }
 
+    /**
+     * @param {Object} service
+     * @returns {Object}
+     * 
+     * @memberOf DependencyInjector
+     */
     injectService(service) {
         for (let key in service) {
             if (this.isInjectableCriteria(service[key]) && "service" === service[key].type) {
