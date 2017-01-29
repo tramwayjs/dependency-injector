@@ -47,7 +47,7 @@ export default class MapFactory {
             return value;
         }
 
-        let obj = Object.create(null);
+        let obj = {};
 
         for (let [k, v] of value) {
             obj[k] = v;

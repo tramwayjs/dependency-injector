@@ -1,5 +1,6 @@
 import Container from './container/Container';
 import ContainerManager from './container/ContainerManager';
+import DependencyInjector from './DependencyInjector';
 import {services} from 'tramway-core';
 let {TypeEnforcementService} = services;
 
@@ -17,8 +18,9 @@ export default class DependencyManager extends ContainerManager {
     }
 
     initialize(services, parameters) {
-        this.servicesManager = this.servicesManager && this.servicesManager.initialize(services);
         this.parametersManager = this.parametersManager && this.parametersManager.initialize(parameters);
+        services = (new DependencyInjector(this.parametersManager)).inject(services);
+        this.servicesManager = this.servicesManager && this.servicesManager.initialize(services);
         return this;
     }
 

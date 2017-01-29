@@ -8,7 +8,7 @@ export default {
     },
     "exampleapiconnection": {
         "class": RandomClass,
-        "constructor": ["parameters.exampleAPI", [2]],
+        "constructor": [{"type": "parameter", "key": "exampleAPI"}, [2]],
         "functions": [
             {
                 "function": "setC",
@@ -21,7 +21,7 @@ export default {
         "functions": [
             {
                 "function": "setC",
-                "args": [5]
+                "args": [{"type": "parameter", "key": "exampleAPI"}]
             }
         ]
     }
