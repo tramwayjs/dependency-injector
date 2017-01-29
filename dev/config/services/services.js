@@ -7,14 +7,8 @@ export default {
         "constructor": [1, 2]
     },
     "exampleapiconnection": {
-        "class": RandomClass,
-        "constructor": [{"type": "parameter", "key": "exampleAPI"}, [2]],
-        "functions": [
-            {
-                "function": "setC",
-                "args": [5]
-            }
-        ]
+        "class": RestAPIConnection,
+        "constructor": [{"type": "parameter", "key": "exampleAPI"}]
     },
     "ad": {
         "class": RandomClass,

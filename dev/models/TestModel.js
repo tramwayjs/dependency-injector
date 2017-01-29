@@ -1,5 +1,5 @@
 import {Model} from 'tramway-core';
-import ExampleAPIWrapperConnection from '../connections/ExampleAPIWrapperConnection';
+import DependencyResolver from '../core/DependencyResolver';
 import TestEntity from '../entities/TestEntity';
 
 export default class TestModel extends Model {
@@ -15,7 +15,7 @@ export default class TestModel extends Model {
         if (!item || !item instanceof TestEntity) {
             item = new TestEntity();
         }
-        super(new ExampleAPIWrapperConnection(), item);
+        super(DependencyResolver.getService('exampleapiconnection'), item);
     }
 
     /**
