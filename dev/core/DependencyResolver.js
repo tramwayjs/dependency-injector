@@ -1,4 +1,4 @@
-import DependencyManager from './DependencyManager';
+import DependencyManager from './dependencies/DependencyManager';
 
 var manager = null;
 

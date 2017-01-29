@@ -1,4 +1,4 @@
-import ClassDefinition from './entities/ClassDefinition';
+import ClassDefinition from '../entities/ClassDefinition';
 
 /**
  * 

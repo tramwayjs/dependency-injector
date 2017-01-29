@@ -1,5 +1,5 @@
-import Container from './container/Container';
-import ContainerManager from './container/ContainerManager';
+import Container from '../container/Container';
+import ContainerManager from '../container/ContainerManager';
 import DependencyInjector from './DependencyInjector';
 import {services} from 'tramway-core';
 let {TypeEnforcementService} = services;

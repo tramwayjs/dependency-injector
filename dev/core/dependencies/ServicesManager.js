@@ -1,9 +1,9 @@
-import Container from './container/Container';
-import ContainerManager from './container/ContainerManager';
+import Container from '../container/Container';
+import ContainerManager from '../container/ContainerManager';
 
-import ClassDefinitionFactory from './ClassDefinitionFactory';
-import ClassBuilder from './ClassBuilder';
-import ServiceNotFoundError from './errors/ServiceNotFoundError';
+import ClassDefinitionFactory from '../util/ClassDefinitionFactory';
+import ClassBuilder from '../util/ClassBuilder';
+import ServiceNotFoundError from '../errors/ServiceNotFoundError';
 
 /**
  * 

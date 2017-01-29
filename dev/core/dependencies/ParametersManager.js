@@ -1,6 +1,6 @@
-import Container from './container/Container';
-import ContainerManager from './container/ContainerManager';
-import MapFactory from './MapFactory';
+import Container from '../container/Container';
+import ContainerManager from '../container/ContainerManager';
+import MapFactory from '../util/MapFactory';
 
 /**
  * @class ParametersManager

@@ -8,8 +8,8 @@ import {Router} from 'tramway-core';
 import routes from './routes/routes.js';
 
 import DependencyResolver from './core/DependencyResolver';
-import ParametersManager from './core/ParametersManager';
-import ServicesManager from './core/ServicesManager';
+import ParametersManager from './core/dependencies/ParametersManager';
+import ServicesManager from './core/dependencies/ServicesManager';
 
 import * as parameters from './config/parameters';
 import services from './config/services';
