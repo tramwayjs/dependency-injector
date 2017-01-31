@@ -1,21 +1,23 @@
 {
-  "name": "tramway-connection-example",
+  "name": "tramway-core-dependency-injector",
   "version": "1.0.0",
-  "description": "Sample NodeJS app using tramway-core with connection extensions and docker with GitLab-CI",
+  "description": "",
   "author": "Julian Wolfe",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/tramwayjs/tramway-core-dependency-injector.git"
+  },
+  "bugs": {
+    "url": "https://gitlab.com/tramwayjs/tramway-core-dependency-injector/issues?label_name%5B%5D=bug"
+  },
   "main": "server.js",
   "scripts": {
-    "build": "gulp default",
-    "start": "gulp build && node dist/server.js",
-    "test": "gulp build && mocha tests"
+    "prepublish": "npm run compile",
+    "compile": "gulp distribute",
+    "test": "gulp distribute && mocha tests"
   },
   "dependencies": {
-    "body-parser": "^1.15.2",
-    "cookie-parser": "^1.4.3",
-    "cors": "^2.8.1",
-    "express": "^4.13.3",
-    "method-override": "^2.3.6",
-    "tramway-connection-rest-api": "^1.1.1",
     "tramway-core": "^1.0.0"
   },
   "devDependencies": {
@@ -24,7 +26,7 @@
     "gulp": "~3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-sourcemaps": "~1.9.1",
-    "mocha": "^3.1.0",
-    "gulp-livereload": "~3.8.1"
+    "mocha": "^3.2.0",
+    "tramway-core-testsuite": "^1.0.0"
   }
 }
