@@ -46,7 +46,7 @@ export default class ParametersManager extends ContainerManager {
         if (key) {
             let value = this.parameters.get(key);
             if (!asMap) {
-                return MapFactory.convertToObject(value);
+                return MapFactory.convertToObject(value, true);
             }
             return value;
         }
