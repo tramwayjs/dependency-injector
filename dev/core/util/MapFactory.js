@@ -38,11 +38,12 @@ export default class MapFactory {
     /**
      * 
      * @param {Map<string, *>} value
+     * @param {boolean} isRecursive
      * @returns {Object}
      * 
      * @memberOf MapFactory
      */
-    static convertToObject(value) {
+    static convertToObject(value, isRecursive) {
         if (!(value instanceof Map)) {
             return value;
         }
@@ -50,6 +51,10 @@ export default class MapFactory {
         let obj = {};
 
         for (let [k, v] of value) {
+            if (isRecursive && v instanceof Map) {
+                v = MapFactory.convertToObject(v, true);
+            }
+
             obj[k] = v;
         }
 

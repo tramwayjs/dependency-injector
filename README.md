@@ -272,7 +272,7 @@ let {MapFactory} = util;
 | Method | Arguments | Return |
 | --- | --- | --- |
 | create | obj: Object, isRecursive: boolean/false | Map |
-| convertToObject | value: Map | Object |
+| convertToObject | value: Map, isRecursive: boolean/false | Object |
 
 ## Errors
 
