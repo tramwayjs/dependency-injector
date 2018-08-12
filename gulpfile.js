@@ -16,6 +16,7 @@ gulp.task('build', function() {
                 "transform-flow-strip-types"
             ],
             "presets": [
+                "babel-preset-react-app",
                 "es2015-node6"
             ]
         }))
@@ -35,6 +36,7 @@ gulp.task('distribute', function() {
                 "transform-flow-strip-types"
             ],
             "presets": [
+                "babel-preset-react-app",
                 "es2015-node6"
             ]
         }))

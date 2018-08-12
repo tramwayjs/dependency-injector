@@ -1,6 +1,3 @@
-import {services} from 'tramway-core';
-let {TypeEnforcementService} = services;
-
 /**
  * @export
  * @class Container
