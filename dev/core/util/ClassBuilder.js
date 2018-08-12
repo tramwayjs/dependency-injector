@@ -18,12 +18,22 @@ export default class ClassBuilder {
         this.functionsArgs = service.getFunctionsArgs();
     }
 
+    prepareConstructor(cb) {
+        this.constructorArgs = cb(this.constructorArgs);
+        return this;
+    }
+
+    prepareFunction(cb) {
+        this.functionsArgs = cb(this.functionsArgs);
+        return this;
+    }
+
     /**
      * @returns {*}
      * 
      * @memberOf ClassBuilder
      */
-    prepare() {
+    build() {
         let instance = new this.Class(...this.constructorArgs);
         this.functionsArgs.forEach(function(func) {
             if (func.function in instance && typeof instance[func.function] === "function") {

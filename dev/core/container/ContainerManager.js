@@ -1,6 +1,3 @@
-import {errors} from 'tramway-core';
-let {AbstractMethodError} = errors;
-
 /**
  * 
  * @export
@@ -13,7 +10,7 @@ export default class ContainerManager {
      * @memberOf ContainerManager
      */
     get(key) {
-        throw new AbstractMethodError();
+        throw new Error();
     }
 
     /**
@@ -24,6 +21,6 @@ export default class ContainerManager {
      * @memberOf ContainerManager
      */
     initialize(items) {
-        throw new AbstractMethodError();
+        throw new Error();
     }
 }

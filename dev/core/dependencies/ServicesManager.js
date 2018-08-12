@@ -79,7 +79,7 @@ export default class ServicesManager extends ContainerManager {
             throw new ServiceNotFoundError(key);
         }
         
-        service = (new ClassBuilder(service)).prepare();
+        service = (new ClassBuilder(service)).build();
         this.instances.set(key, service);
         return service;
     }

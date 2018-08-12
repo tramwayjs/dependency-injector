@@ -1,13 +1,10 @@
-import {Entity, services} from 'tramway-core';
-let {TypeEnforcementService} = services;
-
 /**
  * 
  * @export
  * @class ClassDefinition
  * @extends {Entity}
  */
-export default class ClassDefinition extends Entity {
+export default class ClassDefinition {
 
     /**
      * Creates an instance of ClassDefinition.
@@ -20,8 +17,7 @@ export default class ClassDefinition extends Entity {
      * @memberOf ClassDefinition
      */
     constructor(key, Class, constructorArgs, functionsArgs) {
-        super();
-        this.key = TypeEnforcementService.enforceTypes(key, 'string');
+        this.key = key;
         this.Class = Class;
         this.constructorArgs = Array.isArray(constructorArgs) ? constructorArgs : [];
         this.functionsArgs = Array.isArray(functionsArgs) ? functionsArgs : [];
