@@ -1,2 +1,5 @@
 import ClassDefinition from './ClassDefinition';
-export {ClassDefinition};
+
+export {
+    ClassDefinition
+};

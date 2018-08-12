@@ -1,6 +1,6 @@
 {
   "name": "tramway-core-dependency-injector",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "",
   "author": "Julian Wolfe",
   "license": "MIT",
@@ -11,22 +11,23 @@
   "bugs": {
     "url": "https://gitlab.com/tramwayjs/tramway-core-dependency-injector/issues?label_name%5B%5D=bug"
   },
-  "main": "server.js",
+  "main": "./dist/index.js",
   "scripts": {
     "prepublish": "npm run compile",
-    "compile": "gulp distribute",
-    "test": "gulp distribute && mocha tests"
+    "compile": "NODE_ENV=production node_modules/.bin/tramway build",
+    "test": "npm run compile && ./node_modules/.bin/mocha tests"
   },
-  "dependencies": {
-    "tramway-core": "^1.0.0"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "babel-plugin-transform-flow-strip-types": "^6.14.0",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-es2015-node6": "^0.3.0",
+    "babel-preset-react-app": "^3.1.1",
     "gulp": "~3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-sourcemaps": "~1.9.1",
     "mocha": "^3.2.0",
+    "tramway": "^0.2.1",
     "tramway-core-testsuite": "1.0.0"
   }
 }

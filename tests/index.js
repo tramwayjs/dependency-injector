@@ -1,6 +1,6 @@
 const assert = require('assert');
 const utils = require('tramway-core-testsuite');
-const lib = require('../index.js');
+const lib = require('../dist/index.js');
 var describeCoreClass = utils.describeCoreClass;
 
 describe("Simple acceptance tests to ensure library returns what's promised.", function(){
@@ -17,12 +17,26 @@ describe("Simple acceptance tests to ensure library returns what's promised.", f
         });
 
         it("There should be the same errors as in the previous version", function(){
-            assert.deepEqual(Object.keys(lib.errors), ["ServiceNotFoundError"]);
+            assert.deepEqual(Object.keys(lib.errors), ["ServiceNotFoundError", "ClassDoesNotExistError", "ServiceAlreadyExistsError"]);
         });
 
         describe("Should return a proper 'ServiceNotFoundError' class", describeCoreClass(
             lib.errors.ServiceNotFoundError, 
             "ServiceNotFoundError", 
+            [],
+            []     
+        ));
+
+        describe("Should return a proper 'ClassDoesNotExistError' class", describeCoreClass(
+            lib.errors.ClassDoesNotExistError, 
+            "ClassDoesNotExistError", 
+            [],
+            []     
+        ));
+
+        describe("Should return a proper 'ServiceAlreadyExistsError' class", describeCoreClass(
+            lib.errors.ServiceAlreadyExistsError, 
+            "ServiceAlreadyExistsError", 
             [],
             []     
         ));

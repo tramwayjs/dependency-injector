@@ -1,8 +1,5 @@
 import DependencyManager from './DependencyManager';
 
-import {services} from 'tramway-core';
-let {TypeEnforcementService} = services;
-
 /**
  * @export
  * @class DependencyInjector
@@ -16,7 +13,7 @@ export default class DependencyInjector {
      * @memberOf DependencyInjector
      */
     constructor(dependencies) {
-        this.dependencies = TypeEnforcementService.enforceInstance(dependencies, DependencyManager);
+        this.dependencies = dependencies;
     }
 
     /**
@@ -89,5 +86,15 @@ export default class DependencyInjector {
         }
 
         return service;
-    }    
+    }
+    
+    prepare(arg) {
+        if (!this.isInjectableCriteria(arg)) {
+            return arg;
+        }
+        
+        const {type, key} = arg;
+
+        return this.dependencies.get(type, key);
+    }
 }

@@ -1,6 +1,3 @@
-import {services} from 'tramway-core';
-let {TypeEnforcementService} = services;
-
 /**
  * 
  * @export
@@ -16,7 +13,7 @@ export default class MapFactory {
      * 
      * @memberOf MapFactory
      */
-    static create(obj, isRecursive) {
+    static create(obj, isRecursive = false) {
         if (!typeof obj === "object") {
             return isRecurive ? obj : null;
         }
