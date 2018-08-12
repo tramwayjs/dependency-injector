@@ -1,2 +1,7 @@
 import ServiceNotFoundError from './ServiceNotFoundError';
-export {ServiceNotFoundError};
+import ClassDoesNotExistError from './ClassDoesNotExistError';
+
+export {
+    ServiceNotFoundError,
+    ClassDoesNotExistError,
+};

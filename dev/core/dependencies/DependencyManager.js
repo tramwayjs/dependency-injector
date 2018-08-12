@@ -26,16 +26,12 @@ export default class DependencyManager extends ContainerManager {
         return this;
     }
 
-    /**
-     * @param {Object} services
-     * @param {Object} parameters
-     * @returns {DependencyManager}
-     * 
-     * @memberOf DependencyManager
-     */
-    initialize(services, parameters) {
+    initializeParameters(parameters) {
         this.parametersManager = this.parametersManager && this.parametersManager.initialize(parameters);
-        services = (new DependencyInjector(this)).injectParameters(services);
+        return this;
+    }
+
+    initializeServices(services) {
         this.servicesManager = this.servicesManager && this.servicesManager.initialize(services);
         return this;
     }
@@ -47,8 +43,7 @@ export default class DependencyManager extends ContainerManager {
      * @memberOf DependencyManager
      */
     getService(key) {
-        let service = this.servicesManager && this.servicesManager.get(key);
-        return (new DependencyInjector(this)).injectService(service);
+        return this.servicesManager && this.servicesManager.get(key);
     }
 
     /**

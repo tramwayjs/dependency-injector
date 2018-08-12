@@ -17,12 +17,19 @@ describe("Simple acceptance tests to ensure library returns what's promised.", f
         });
 
         it("There should be the same errors as in the previous version", function(){
-            assert.deepEqual(Object.keys(lib.errors), ["ServiceNotFoundError"]);
+            assert.deepEqual(Object.keys(lib.errors), ["ServiceNotFoundError", "ClassDoesNotExistError"]);
         });
 
         describe("Should return a proper 'ServiceNotFoundError' class", describeCoreClass(
             lib.errors.ServiceNotFoundError, 
             "ServiceNotFoundError", 
+            [],
+            []     
+        ));
+
+        describe("Should return a proper 'ClassDoesNotExistError' class", describeCoreClass(
+            lib.errors.ClassDoesNotExistError, 
+            "ClassDoesNotExistError", 
             [],
             []     
         ));
