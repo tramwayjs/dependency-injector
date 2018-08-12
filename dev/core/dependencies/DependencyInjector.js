@@ -86,5 +86,15 @@ export default class DependencyInjector {
         }
 
         return service;
-    }    
+    }
+    
+    prepare(arg) {
+        if (!this.isInjectableCriteria(arg)) {
+            return arg;
+        }
+        
+        const {type, key} = arg;
+
+        return this.dependencies.get(type, key);
+    }
 }

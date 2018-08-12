@@ -18,31 +18,32 @@ https://gitlab.com/tramwayjs/tramway-core-dependency-injector-example
 ## Making your Tramway app injection ready
 In addition to using the new configuration structure detailed below, you will need to add the following to your server configuration file - in Tramway examples this is the `server.js` file at the root - to get started.
 
-```
-import {DependencyResolver, dependencies} from 'tramway-core-dependency-injector';
-let {ParametersManager, ServicesManager} = dependencies;
+```javascript
+import {DependencyResolver} from 'tramway-core-dependency-injector';
 
 import * as parameters from './config/parameters';
 import services from './config/services';
 
-DependencyResolver.create(new ServicesManager(), new ParametersManager()).initialize(services, parameters);
+DependencyResolver.initialize(services, parameters);
 ```
 In terms of implementation, this and configuration format is all that is needed to use the service but every piece will be documented further for extendability and tweaks as need be.
 
 With the above code implemented, any time you access the `DependencyResolver` anywhere in the project, you will have access to its interface and all of the services and parameters made available at initialization.
 
-```
+```javascript
 import {DependencyResolver} from 'tramway-core-dependency-injector';
 ```
 
 ## Recommended Folder Structure in addition to Tramway
-- config
-    - parameters
-        - global
-        - env1
-        - env2
-    - services
+```
++ config
++- parameters
+++- global
+++- env1
+++- env2
+++- services
 - services
+```
 
 ## Expected config structure
 The enhanced structure permits you to have multiple config files of any type - though Tramway presently supports js modules - or one that meets the following criteria. Parameters and Services are given their own sub folders and the environments are separated to make it easier to organize.
@@ -54,7 +55,7 @@ The resulting objects should be interpreted as a nested key-value store which ca
 The root of the parameter object must have all the available environments with the default one set to "global". From this point, the different keys apart from global would contain environment-specific variables to override the globals.
 
 Using multiple files in different directories can achieve the following root `index.js` file.
-```
+```javascript
 import * as global from './global';
 import * as docker from './docker';
 import * as development from './development';
@@ -64,7 +65,7 @@ export {global, docker, development};
 
 As a sample, this structure would translate to the following once read by the `DependencyResolver`:
 
-```
+```json
 {
     "global": {
         "exampleAPI": {
@@ -89,7 +90,7 @@ When running on a docker environment set in `NODE_ENV` as 'docker' the exampleAP
 Services are expected to be read as key-value pairs where the key is the service name and the value is the service definition.
 
 A simple configuration could look like the following.
-```
+```javascript
 {
     "randomclass": {
         "class": RandomClass,
@@ -106,7 +107,7 @@ Note that the constructor takes an array of arguments. In `exampleapiconnection`
 ### Dependency Objects
 In your config you may find a service needs a parameter or another service. This purpose is fulfilled simply with the `DependencyInjector` by adding a specially formatted object in your corresponding configuration file.
 
-```
+```json
 {
     type: "parameter|service",
     key: "nameofdependencyparameter"
@@ -117,7 +118,7 @@ The object with a type of parameter or service and the key will be resolved at r
 
 For example, a service 'ad1' that is dependent 'ad2' which needs parameters from the 'exampleAPI' parameter would have a config snippet that looks like the following:
 
-```
+```javascript
 "ad": {
     "class": RandomClass,
     "constructor": [{"type": "parameter", "key": "exampleAPI"}]
@@ -135,7 +136,7 @@ For example, a service 'ad1' that is dependent 'ad2' which needs parameters from
 
 The above would translate to the following execution call when getting the `ad2` service:
 
-```
+```javascript
 let a = DependencyResolver.getService('ad2');
 
 // Will return the equivalent to the following on a singleton basis:
@@ -146,6 +147,30 @@ let a = (new RandomClass2()).setC(new RandomClass({
     "respondAsText": false
     })
 );
+```
+
+## Customizing the Dependency Injection library
+In the event that you want to override the `ParametersManager` and `ServicesManager` to add or modify logic to suit your needs, you can achieve so by extending them in your custom classes and overriding the default creation cycle of the `DependencyResolver`
+
+Example:
+
+In your <Dependency|Service>Manager file:
+
+```javascript
+import {dependencies} from 'tramway-core-dependency-injector';
+const {ParametersManager, ServicesManager} = dependencies;
+
+export default class MyParametersManager extends ParametersManager {}
+```
+
+```javascript
+import {DependencyResolver} from 'tramway-core-dependency-injector';
+import {MyServicesManager, MyParametersManager} from './core/dependency_injection/managers';
+
+import * as parameters from './config/parameters';
+import services from './config/services';
+
+DependencyResolver.create(new MyServicesManager(), new MyParametersManager()).initialize(services, parameters);
 ```
 
 # Documentation
@@ -179,7 +204,7 @@ The `DependencyResolver` tucks way the dependency injectio system but was made a
 
 ### Container
 The container is a simple and secure abstraction of the new `Map` class in ES6+. It also is responsible for managing the conversion of Objects to Maps as they get set.
-```
+```javascript
 import {container} from 'tramway-core-dependency-injector;
 let {Container} = container;
 ```
@@ -193,7 +218,7 @@ let {Container} = container;
 
 ### ContainerManager
 An abstract class which makes sure the `DependencyManager`, `ServicesManager` and `ParametersManager` maintain a consistent interface and are compatible with the `Container`. It is a bit more restrictive, offering an initialize and getter.
-```
+```javascript
 import {container} from 'tramway-core-dependency-injector;
 let {ContainerManager} = container;
 ```
@@ -207,7 +232,7 @@ let {ContainerManager} = container;
 
 ### DependencyInjectior
 The DependencyInjector is an internal facade that is able to communicate with the DependencyManager to bridge missing pieces between the ServicesManager and ParametersManger without directly interfering with their internal processes.
-```
+```javascript
 import {dependencies} from 'tramway-core-dependency-injector;
 let {DependencyInjectior} = dependencies;
 ```
@@ -216,7 +241,7 @@ Furthermore, it enforces the structured configuration object for parameters and 
 
 ### DependencyManager, ParametersManager, ServicesManager
 The DependencyManager and its sub-managers ParametersManager and ServicesManager handle all the necessary transactions to register services and make them easily attainable by the DependencyResolver.
-```
+```javascript
 import {dependencies} from 'tramway-core-dependency-injector;
 let {DependencyManager, ParametersManger, ServicesManager} = dependencies;
 ```
@@ -224,9 +249,9 @@ let {DependencyManager, ParametersManger, ServicesManager} = dependencies;
 ## Entities
 
 ### ClassDefinition
-```
+```javascript
 import {entities} from 'tramway-core-dependency-injector;
-let {ClassDefinition} = entities;
+const {ClassDefinition} = entities;
 ```
 
 | Method | Arguments | Return |
@@ -242,9 +267,9 @@ let {ClassDefinition} = entities;
 ### ClassDefinitionFactory
 Converts plain javascript objects passed by the `DependencyManager` into standardized `ClassDefinition`s so they can be used in the builder later on to build new instances. 
 
-```
+```javascript
 import {util} from 'tramway-core-dependency-injector;
-let {ClassDefinitionFactory} = util;
+const {ClassDefinitionFactory} = util;
 
 ...
 
@@ -253,20 +278,22 @@ let map = ClassDefinitionFactory.create(services);
 
 ### ClassBuilder
 Creates a class or service given the corresponding `ClassDefinition`. It will construct the instance and make the specified function calls with the arguments and return an instance which will be returned to the `DependencyResolver` via the `DependencyManager`.
-```
+
+```javascript
 import {util} from 'tramway-core-dependency-injector;
-let {ClassBuilder} = util;
+const {ClassBuilder} = util;
 
 ...
 
-let service = (new ClassBuilder(service)).prepare();
+let service = (new ClassBuilder(dependencyInjector)).build(service);
 ```
 
 ### MapFactory
 A static utility made to simplify the process of converting between Objects and Maps recursively.
-```
+
+```javascript
 import {util} from 'tramway-core-dependency-injector;
-let {MapFactory} = util;
+const {MapFactory} = util;
 ```
 
 | Method | Arguments | Return |
@@ -278,7 +305,8 @@ let {MapFactory} = util;
 
 ### Error
 The library adds a new ServiceNotFound error which is triggered when a service isn't found. It takes the name of the service as an argument.
-```
+
+```javascript
 import {errors} from 'tramway-core-dependency-injector;
 let {ServiceNotFoundError} = errors;
 

@@ -1,4 +1,6 @@
-import ClassDefinition from '../entities/ClassDefinition';
+import {ClassDefinition} from '../entities';
+import { DependencyInjector } from '../dependencies';
+import {ClassDoesNotExistError} from '../errors';
 
 /**
  * @export
@@ -8,14 +10,12 @@ export default class ClassBuilder {
     /**
      * Creates an instance of ClassBuilder.
      * 
-     * @param {ClassDefinition} service
+     * @param {DependencyInjector} service
      * 
      * @memberOf ClassBuilder
      */
-    constructor(service) {
-        this.Class = service.getClass();
-        this.constructorArgs = service.getConstructorArgs();
-        this.functionsArgs = service.getFunctionsArgs();
+    constructor(dependencyInjector) {
+        this.dependencyInjector = dependencyInjector;
     }
 
     prepareConstructor(cb) {
@@ -29,17 +29,36 @@ export default class ClassBuilder {
     }
 
     /**
+     * @param {ClassDefinition} service
      * @returns {*}
      * 
      * @memberOf ClassBuilder
      */
-    build() {
-        let instance = new this.Class(...this.constructorArgs);
-        this.functionsArgs.forEach(function(func) {
+    build(service) {
+        const Class = service.getClass();
+
+        if (!Class) {
+            throw new ClassDoesNotExistError(service.getKey());
+        }
+
+        let constructorArgs = service.getConstructorArgs();
+        let functionsArgs = service.getFunctionsArgs();
+
+        if (this.dependencyInjector) {
+            constructorArgs = service.getConstructorArgs().map(arg => this.dependencyInjector.prepare(arg));
+            functionsArgs = service.getFunctionsArgs().map(func => {
+                func.args = func.args.map(arg => this.dependencyInjector.prepare(arg));
+                return func;
+            });
+        }
+
+        let instance = new Class(...constructorArgs);
+        functionsArgs.forEach(function(func) {
             if (func.function in instance && typeof instance[func.function] === "function") {
                 instance[func.function](...func.args);
             }
         });
+
         return instance;
     }
 }

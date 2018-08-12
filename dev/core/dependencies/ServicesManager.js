@@ -1,9 +1,6 @@
-import Container from '../container/Container';
-import ContainerManager from '../container/ContainerManager';
-
-import ClassDefinitionFactory from '../util/ClassDefinitionFactory';
-import ClassBuilder from '../util/ClassBuilder';
-import ServiceNotFoundError from '../errors/ServiceNotFoundError';
+import {Container, ContainerManager} from '../container';
+import {ClassDefinitionFactory, ClassBuilder} from '../util';
+import {ServiceNotFoundError} from '../errors';
 
 /**
  * 
@@ -21,6 +18,7 @@ export default class ServicesManager extends ContainerManager {
         super();
         this.services = null;
         this.instances = null;
+        this.classBuilder = new ClassBuilder();
     }
 
     /**
@@ -79,8 +77,13 @@ export default class ServicesManager extends ContainerManager {
             throw new ServiceNotFoundError(key);
         }
         
-        service = (new ClassBuilder(service)).build();
+        service = this.classBuilder.build(service);
         this.instances.set(key, service);
         return service;
+    }
+
+    setClassBuilder(classBuilder) {
+        this.classBuilder = classBuilder;
+        return this;
     }
 }
