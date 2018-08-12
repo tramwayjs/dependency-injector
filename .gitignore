@@ -4,3 +4,5 @@ core/**/*.js.map
 /index.js
 *.js.map
 /test.js
+dist
+.DS_Store
