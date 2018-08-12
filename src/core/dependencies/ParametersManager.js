@@ -27,7 +27,7 @@ export default class ParametersManager extends ContainerManager {
      */
     initialize(parameters) {
         this.env = process.env.NODE_ENV;
-        parameters = MapFactory.create(parameters, true);
+        parameters = MapFactory.create(parameters);
         parameters = this.unifyConfig(parameters);
         this.parameters = new Container(parameters);
         return this;
@@ -45,7 +45,7 @@ export default class ParametersManager extends ContainerManager {
     get(key, asMap) {
         if (key) {
             let value = this.parameters.get(key);
-            if (!asMap) {
+            if (!asMap && value instanceof Map) {
                 return MapFactory.convertToObject(value, true);
             }
             return value;
