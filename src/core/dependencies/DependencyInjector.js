@@ -54,7 +54,7 @@ export default class DependencyInjector {
      * @memberOf DependencyInjector
      */
     isInjectableCriteria(arg) {
-        return "object" === typeof arg && Object.keys(arg).length === 2 && "type" in arg && "key" in arg;
+        return arg && "object" === typeof arg && Object.keys(arg).length === 2 && "type" in arg && "key" in arg;
     }
 
     /**
