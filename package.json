@@ -6,10 +6,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/tramwayjs/tramway-core-dependency-injector.git"
+    "url": "https://github.com/tramwayjs/dependency-injector.git"
   },
   "bugs": {
-    "url": "https://gitlab.com/tramwayjs/tramway-core-dependency-injector/issues?label_name%5B%5D=bug"
+    "url": "https://github.com/tramwayjs/dependency-injector/labels/bug"
   },
   "main": "./dist/index.js",
   "scripts": {
