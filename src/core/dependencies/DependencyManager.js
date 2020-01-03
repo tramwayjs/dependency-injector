@@ -70,4 +70,24 @@ export default class DependencyManager extends ContainerManager {
         }
         return null;
     }
+
+    terminate() {
+        this.servicesManager.terminate();
+        this.parametersManager.terminate();
+        return this;
+    }
+
+    /**
+     * @returns {ServicesManager}
+     */
+    getServicesManager() {
+        return this.servicesManager;
+    }
+
+    /**
+     * @returns {ParametersManager}
+     */
+    getParametersManager() {
+        return this.parametersManager;
+    }
 }

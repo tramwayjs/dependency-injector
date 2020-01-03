@@ -55,7 +55,7 @@ export default class ServicesManager extends ContainerManager {
      * @memberOf ServicesManager
      */
     get(key) {
-        let instance = this.instances.get(key);
+        let instance = this.getInstance(key);
         if (null !== instance) {
             return instance;
         }
@@ -80,6 +80,29 @@ export default class ServicesManager extends ContainerManager {
         service = this.classBuilder.build(service);
         this.instances.set(key, service);
         return service;
+    }
+
+    terminate() {
+        this.instances.forEach((instance, key) => this.instances.remove(key));
+        return this;
+    }
+
+    /**
+     * @returns {} {[string]: {}}
+     */
+    getServices() {
+        return this.services.getAll();
+    }
+
+    /**
+     * @returns {[]} Instance[]
+     */
+    getInstanceKeys() {
+        return Object.keys(this.instances.getAll());
+    }
+
+    getInstance(key) {
+        return this.instances.get(key);
     }
 
     setClassBuilder(classBuilder) {

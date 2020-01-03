@@ -100,4 +100,12 @@ export default class ParametersManager extends ContainerManager {
 
         return globalConfig;
     }
+
+    getParameters() {
+        return MapFactory.convertToObject(this.parameters.items, true);
+    }
+
+    terminate() {
+        return this;
+    }
 }

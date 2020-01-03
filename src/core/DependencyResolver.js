@@ -6,17 +6,22 @@ import {
 } from './dependencies';
 import {ClassBuilder} from './util';
 
-var manager = null;
+var manager = new Map();
 
 class DependencyResolver {
-    constructor() {
-        if (manager) {
-            return manager;
+    constructor(name) {
+        this.name = name;
+        const instance = manager.get(name);
+
+        if (instance) {
+            return instance;
         }
+
         this.dependencyManager = new DependencyManager();
         this.dependencyInjector = new DependencyInjector(this.dependencyManager);
         this.created = false;
-        manager = this;
+        
+        manager.set(this.name, this);
     }
 
     create(servicesManager, parametersManager) {
@@ -27,6 +32,9 @@ class DependencyResolver {
 
         this.dependencyManager = this.dependencyManager.create(servicesManager, parametersManager);
         this.created = true;
+
+        
+        manager.set(this.name, this);
         return this;
     }
 
@@ -38,6 +46,8 @@ class DependencyResolver {
         this.dependencyManager = this.dependencyManager.initializeParameters(parameters);
         services = this.dependencyInjector.injectParameters(services);
         this.dependencyManager = this.dependencyManager.initializeServices(services);
+
+        manager.set(this.name, this);
         return this;
     }
 
@@ -49,6 +59,31 @@ class DependencyResolver {
     getParameter(key) {
         return this.dependencyManager.getParameter(key);
     }
+
+    terminate() {
+        this.dependencyManager.terminate();
+        return this;
+    }
+
+    getDependencyManager() {
+        return this.dependencyManager;
+    }
+
+    isCreated() {
+        return this.created;
+    }
+
+    getName() {
+        return this.name;
+    }
 }
 
 export default new DependencyResolver();
+
+export function createDependencyResolver(name) {
+    if (manager.get(name)) {
+        return manager.get(name);
+    }
+
+    return new DependencyResolver(name)
+};
