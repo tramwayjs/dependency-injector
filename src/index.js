@@ -3,6 +3,7 @@ import * as dependencies from './core/dependencies';
 import * as entities from './core/entities';
 import * as errors from './core/errors';
 import * as util from './core/util';
-import DependencyResolver from './core/DependencyResolver';
+import DependencyResolver, {createDependencyResolver} from './core/DependencyResolver';
 
-export {DependencyResolver, container, dependencies, entities, errors, util};
+export default DependencyResolver;
+export {DependencyResolver, createDependencyResolver, container, dependencies, entities, errors, util};

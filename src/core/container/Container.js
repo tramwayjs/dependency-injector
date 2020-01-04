@@ -61,4 +61,18 @@ export default class Container {
 
         return this.items.get(key);
     }
+
+    getAll() {
+        return Object.fromEntries(this.items.entries());
+    }
+
+    forEach(fn) {
+        this.items.forEach((value, key) => fn(value, key));
+        return this;
+    }
+
+    remove(key) {
+        this.items.delete(key);
+        return this;
+    }
 }
