@@ -1,5 +1,5 @@
 {
-  "name": "tramway-core-dependency-injector",
+  "name": "@tramwayjs/dependency-injector",
   "version": "2.0.0-beta.0",
   "description": "",
   "author": "Julian Wolfe",
